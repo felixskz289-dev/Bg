@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Повторение китайского: Уроки 1-5</title>
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-hover: #4338CA;
+            --bg-color: #F3F4F6;
+            --card-bg: #FFFFFF;
+            --text-main: #1F2937;
+            --text-muted: #6B7280;
+            --border: #E5E7EB;
+            --success: #10B981;
+            --error: #EF4444;
+            --accent: #FEF3C7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), #818CF8);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Слова */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .vocab-item {
+            background-color: var(--bg-color);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .hanzi {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-main);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .pinyin {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .translation {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Предложения */
+        .sentence-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sentence-item {
+            background-color: #F8FAFC;
+            padding: 15px 20px;
+            border-left: 4px solid var(--primary);
+            border-radius: 0 12px 12px 0;
+        }
+
+        .sentence-hanzi {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .sentence-pinyin {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        /* Интерактив */
+        .exercise {
+            background-color: #EEF2FF;
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        .exercise-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .match-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .match-item {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .match-select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid var(--border);
+            font-size: 1rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .match-select:focus {
+            border-color: var(--primary);
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .feedback {
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .feedback.success { color: var(--success); }
+        .feedback.error { color: var(--error); }
+
+        /* Специфичные стили для аудирования */
+        .audio-exercise {
+            background: var(--accent);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .audio-btn {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        
+        .audio-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .fill-blank input {
+            border: none;
+            border-bottom: 2px solid var(--text-muted);
+            background: transparent;
+            font-size: 1.2rem;
+            width: 80px;
+            text-align: center;
+            outline: none;
+            color: var(--primary);
+            font-weight: bold;
+            margin: 0 5px;
+        }
+        
+        .fill-blank input:focus {
+            border-bottom-color: var(--primary);
+        }
+
+        @media (max-width: 600px) {
+            .match-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .match-item {
+                text-align: left;
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>中文 Урок 1-5: Повторение</h1>
+        <p>Интерактивный конспект и практика (30 минут)</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Урок 1: Приветствие -->
+        <div class="card">
+            <h2 class="section-title">👋 Урок 1: Приветствие</h2>
+            <div class="vocab-grid">
+                <div class="vocab-item"><span class="hanzi">你好</span><span class="pinyin">nǐ hǎo</span><span class="translation">Привет</span></div>
+                <div class="vocab-item"><span class="hanzi">我</span><span class="pinyin">wǒ</span><span class="translation">Я / меня</span></div>
+                <div class="vocab-item"><span class="hanzi">很</span><span class="pinyin">hěn</span><span class="translation">Очень</span></div>
+                <div class="vocab-item"><span class="hanzi">好</span><span class="pinyin">hǎo</span><span class="translation">Хорошо</span></div>
+                <div class="vocab-item"><span class="hanzi">吗</span><span class="pinyin">ma</span><span class="translation">Вопросит. частица</span></div>
+            </div>
+            <div style="margin-top: 20px;">
+                <h3 style="font-size: 1.1rem; margin-bottom: 10px; color: var(--text-muted);">Фразы:</h3>
+                <div class="sentence-list">
+                    <div class="sentence-item">
+                        <span class="sentence-hanzi">你好吗？</span> <span class="sentence-pinyin">Nǐ hǎo ma?</span> <br>
+                        <span class="translation">Как дела? (Ты в порядке?)</span>
+                    </div>
+                    <div class="sentence-item">
+                        <span class="sentence-hanzi">我很好。</span> <span class="sentence-pinyin">Wǒ hěn hǎo.</span> <br>
+                        <span class="translation">У меня всё очень хорошо.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Урок 3: Где твой дом? -->
+        <div class="card">
+            <h2 class="section-title">🗺️ Урок 3: Где твой дом?</h2>
+            <div class="vocab-grid">
+                <div class="vocab-item"><span class="hanzi">家</span><span class="pinyin">jiā</span><span class="translation">Дом</span></div>
+                <div class="vocab-item"><span class="hanzi">在</span><span class="pinyin">zài</span><span class="translation">Находиться в</span></div>
+                <div class="vocab-item"><span class="hanzi">哪儿</span><span class="pinyin">nǎr</span><span class="translation">Где?</span></div>
+                <div class="vocab-item"><span class="hanzi">北京</span><span class="pinyin">Běijīng</span><span class="translation">Пекин</span></div>
+                <div class="vocab-item"><span class="hanzi">上海</span><span class="pinyin">Shànghǎi</span><span class="translation">Шанхай</span></div>
+                <div class="vocab-item"><span class="hanzi">香港</span><span class="pinyin">Xiānggǎng</span><span class="translation">Гонконг</span></div>
+            </div>
+            <div style="margin-top: 20px;">
+                <h3 style="font-size: 1.1rem; margin-bottom: 10px; color: var(--text-muted);">Фразы:</h3>
+                <div class="sentence-list">
+                    <div class="sentence-item">
+                        <span class="sentence-hanzi">你家在哪儿？</span> <span class="sentence-pinyin">Nǐ jiā zài nǎr?</span> <br>
+                        <span class="translation">Где твой дом?</span>
+                    </div>
+                    <div class="sentence-item">
+                        <span class="sentence-hanzi">我家在北京。</span> <span class="sentence-pinyin">Wǒ jiā zài Běijīng.</span> <br>
+                        <span class="translation">Мой дом в Пекине.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Урок 4: Моя семья -->
+        <div class="card">
+            <h2 class="section-title">👨‍👩‍👧‍👦 Урок 4: Моя семья</h2>
+            <div class="vocab-grid">
+                <div class="vocab-item"><span class="hanzi">这</span><span class="pinyin">zhè</span><span class="translation">Это</span></div>
+                <div class="vocab-item"><span class="hanzi">那</span><span class="pinyin">nà</span><span class="translation">То</span></div>
+                <div class="vocab-item"><span class="hanzi">爸爸</span><span class="pinyin">bàba</span><span class="translation">Папа</span></div>
+                <div class="vocab-item"><span class="hanzi">妈妈</span><span class="pinyin">māma</span><span class="translation">Мама</span></div>
+                <div class="vocab-item"><span class="hanzi">哥哥</span><span class="pinyin">gēge</span><span class="translation">Старший брат</span></div>
+                <div class="vocab-item"><span class="hanzi">不</span><span class="pinyin">bù</span><span class="translation">Не / нет</span></div>
+            </div>
+            <div style="margin-top: 20px;">
+                <h3 style="font-size: 1.1rem; margin-bottom: 10px; color: var(--text-muted);">Фразы:</h3>
+                <div class="sentence-list">
+                    <div class="sentence-item">
+                        <span class="sentence-hanzi">这是我爸爸。</span> <span class="sentence-pinyin">Zhè shì wǒ bàba.</span> <br>
+                        <span class="translation">Это мой папа.</span>
+                    </div>
+                    <div class="sentence-item">
+                        <span class="sentence-hanzi">那不是我妈妈。</span> <span class="sentence-pinyin">Nà bú shì wǒ māma.</span> <br>
+                        <span class="translation">То не моя мама.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Урок 5: У меня есть кот -->
+        <div class="card">
+            <h2 class="section-title">🐱 Урок 5: У меня есть кот</h2>
+            <div class="vocab-grid">
+                <div class="vocab-item"><span class="hanzi">有</span><span class="pinyin">yǒu</span><span class="translation">Иметь</span></div>
+                <div class="vocab-item"><span class="hanzi">猫</span><span class="pinyin">māo</span><span class="translation">Кошка</span></div>
+                <div class="vocab-item"><span class="hanzi">狗</span><span class="pinyin">gǒu</span><span class="translation">Собака</span></div>
+                <div class="vocab-item"><span class="hanzi">只</span><span class="pinyin">zhī</span><span class="translation">Счетное слово</span></div>
+                <div class="vocab-item"><span class="hanzi">小</span><span class="pinyin">xiǎo</span><span class="translation">Маленький</span></div>
+                <div class="vocab-item"><span class="hanzi">两</span><span class="pinyin">liǎng</span><span class="translation">Два (с счет. словом)</span></div>
+                <div class="vocab-item"><span class="hanzi">三</span><span class="pinyin">sān</span><span class="translation">Три</span></div>
+            </div>
+            <div style="margin-top: 20px;">
+                <h3 style="font-size: 1.1rem; margin-bottom: 10px; color: var(--text-muted);">Фразы:</h3>
+                <div class="sentence-list">
+                    <div class="sentence-item">
+                        <span class="sentence-hanzi">我有一只小猫。</span> <span class="sentence-pinyin">Wǒ yǒu yì zhī xiǎo māo.</span> <br>
+                        <span class="translation">У меня есть маленькая кошка.</span>
+                    </div>
+                    <div class="sentence-item">
+                        <span class="sentence-hanzi">他有两只小狗。</span> <span class="sentence-pinyin">Tā yǒu liǎng zhī xiǎo gǒu.</span> <br>
+                        <span class="translation">У него есть две маленькие собаки.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Практика 1: Сопоставление -->
+        <div class="exercise">
+            <div class="exercise-title">📝 Практика 1: Сопоставьте иероглифы и перевод</div>
+            <div id="match-container">
+                <!-- Заполняется через JS -->
+            </div>
+            <button class="btn" onclick="checkMatches()">Проверить ответы</button>
+            <div id="match-feedback" class="feedback"></div>
+        </div>
+
+        <!-- Практика 2: Аудирование (симуляция) -->
+        <div class="exercise">
+            <div class="exercise-title">🎧 Практика 2: Восприятие на слух</div>
+            <p style="margin-bottom: 15px; color: var(--text-muted);">Представьте, что вы слышите фразу. Выберите правильный перевод.</p>
+            
+            <div class="audio-exercise">
+                <button class="audio-btn" onclick="playAudioSim()">
+                    🔊 <span>Нажмите, чтобы "услышать" фразу: <br><i style="font-size: 0.9rem; font-weight:normal;">(Симуляция: Nǐ hǎo ma?)</i></span>
+                </button>
+                <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn" style="width: auto; margin:0; background: white; color: var(--text-main); border: 2px solid var(--border);" onclick="checkAudio('wrong')">Как тебя зовут?</button>
+                    <button class="btn" style="width: auto; margin:0; background: white; color: var(--text-main); border: 2px solid var(--border);" onclick="checkAudio('correct')">Как дела?</button>
+                    <button class="btn" style="width: auto; margin:0; background: white; color: var(--text-main); border: 2px solid var(--border);" onclick="checkAudio('wrong')">Где твой дом?</button>
+                </div>
+                <div id="audio-feedback" class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- Практика 3: Заполнение пропусков -->
+        <div class="exercise">
+            <div class="exercise-title">✍️ Практика 3: Вставьте правильное слово</div>
+            <p style="margin-bottom: 20px; font-size: 1.1rem;">
+                У меня есть 2 маленькие собаки.<br><br>
+                Wǒ yǒu <span class="fill-blank"><input type="text" id="blank1" placeholder="?"></span> 
+                <span class="fill-blank"><input type="text" id="blank2" placeholder="?"></span> 
+                xiǎo <span class="fill-blank"><input type="text" id="blank3" placeholder="?"></span>.
+            </p>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">
+                Подсказка: Вам нужно вставить пиньинь (латиницей) для слов: "два (с счетным словом)", "счетное слово для животных" и "собака".
+            </p>
+            <button class="btn" onclick="checkBlanks()">Проверить</button>
+            <div id="blank-feedback" class="feedback"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // Данные для сопоставления
+        const matchData = [
+            { id: 1, hanzi: '你好', correct: 'hello' },
+            { id: 2, hanzi: '爸爸', correct: 'father' },
+            { id: 3, hanzi: '猫', correct: 'cat' },
+            { id: 4, hanzi: '哪儿', correct: 'where' },
+            { id: 5, hanzi: '有', correct: 'have' }
+        ];
+
+        const options = [
+            { val: 'hello', text: 'Привет (hello)' },
+            { val: 'father', text: 'Папа (father)' },
+            { val: 'cat', text: 'Кошка (cat)' },
+            { val: 'where', text: 'Где (where)' },
+            { val: 'have', text: 'Иметь (have)' },
+            { val: 'dog', text: 'Собака (dog)' },
+            { val: 'mother', text: 'Мама (mother)' }
+        ];
+
+        // Рендер сопоставления
+        const matchContainer = document.getElementById('match-container');
+        matchData.forEach((item, index) => {
+            const row = document.createElement('div');
+            row.className = 'match-row';
+            
+            let selectHtml = `<select class="match-select" id="select-${item.id}"><option value="">-- Выберите перевод --</option>`;
+            // Перемешиваем опции для интереса
+            const shuffledOptions = [...options].sort(() => 0.5 - Math.random());
+            shuffledOptions.forEach(opt => {
+                selectHtml += `<option value="${opt.val}">${opt.text}</option>`;
+            });
+            selectHtml += `</select>`;
+
+            row.innerHTML = `
+                <div class="match-item">${item.hanzi}</div>
+                <div style="flex: 1;">${selectHtml}</div>
+            `;
+            matchContainer.appendChild(row);
+        });
+
+        // Проверка сопоставления
+        function checkMatches() {
+            let correctCount = 0;
+            matchData.forEach(item => {
+                const select = document.getElementById(`select-${item.id}`);
+                if (select.value === item.correct) {
+                    correctCount++;
+                    select.style.borderColor = 'var(--success)';
+                    select.style.backgroundColor = '#ECFDF5';
+                } else {
+                    select.style.borderColor = 'var(--error)';
+                    select.style.backgroundColor = '#FEF2F2';
+                }
+            });
+
+            const feedback = document.getElementById('match-feedback');
+            if (correctCount === matchData.length) {
+                feedback.textContent = "Отлично! Все верно! 🎉";
+                feedback.className = "feedback success";
+            } else {
+                feedback.textContent = `Правильно: ${correctCount} из ${matchData.length}. Попробуйте еще раз!`;
+                feedback.className = "feedback error";
+            }
+        }
+
+        // Аудирование
+        function playAudioSim() {
+            // Визуальная имитация проигрывания
+            const btn = document.querySelector('.audio-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '⏳ Воспроизведение...';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 1000);
+            
+            // Озвучка браузером (опционально)
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance("Nǐ hǎo ma?");
+                utterance.lang = 'zh-CN';
+                utterance.rate = 0.8;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function checkAudio(answer) {
+            const feedback = document.getElementById('audio-feedback');
+            if (answer === 'correct') {
+                feedback.textContent = "Верно! 你好吗? (Nǐ hǎo ma?) — Как дела?";
+                feedback.className = "feedback success";
+            } else {
+                feedback.textContent = "Не совсем. Правильный ответ: Как дела?";
+                feedback.className = "feedback error";
+            }
+        }
+
+        // Заполнение пропусков
+        function checkBlanks() {
+            const b1 = document.getElementById('blank1').value.trim().toLowerCase();
+            const b2 = document.getElementById('blank2').value.trim().toLowerCase();
+            const b3 = document.getElementById('blank3').value.trim().toLowerCase();
+            
+            const feedback = document.getElementById('blank-feedback');
+            let score = 0;
+
+            // Проверка первого пропуска (два - liang)
+            if (b1 === 'liang' || b1 === 'liǎng') {
+                document.getElementById('blank1').style.borderColor = 'var(--success)';
+                score++;
+            } else {
+                document.getElementById('blank1').style.borderColor = 'var(--error)';
+            }
+
+            // Проверка второго пропуска (счетное слово - zhi)
+            if (b2 === 'zhi' || b2 === 'zhī') {
+                document.getElementById('blank2').style.borderColor = 'var(--success)';
+                score++;
+            } else {
+                document.getElementById('blank2').style.borderColor = 'var(--error)';
+            }
+
+            // Проверка третьего пропуска (собака - gou)
+            if (b3 === 'gou' || b3 === 'gǒu') {
+                document.getElementById('blank3').style.borderColor = 'var(--success)';
+                score++;
+            } else {
+                document.getElementById('blank3').style.borderColor = 'var(--error)';
+            }
+
+            if (score === 3) {
+                feedback.textContent = "Идеально! Wǒ yǒu liǎng zhī xiǎo gǒu. (У меня есть две маленькие собаки). 🐶🐶";
+                feedback.className = "feedback success";
+            } else {
+                feedback.textContent = "Есть ошибки. Правильно: liǎng zhī gǒu";
+                feedback.className = "feedback error";
+            }
+        }
+    </script>
+</body>
+</html>
